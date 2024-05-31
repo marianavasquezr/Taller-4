@@ -6,15 +6,27 @@
         "edad": "22"
     },
     {
-        "id": "3",
-        "nombre": "maria",
-        "apellido": "vasquez",
-        "edad": "11"
-    },
-    {
         "id": "8",
         "nombre": "Haroll",
         "apellido": "Urrego",
         "edad": "21"
+    },
+    {
+        "id": "9",
+        "nombre": "Estefania",
+        "apellido": "Loaiza",
+        "edad": "19"
+    },
+    {
+        "id": "7",
+        "nombre": "Mariana",
+        "apellido": "Vasquez",
+        "edad": "20"
+    },
+    {
+        "id": "3",
+        "nombre": "Maria",
+        "apellido": "Ramirez",
+        "edad": "30"
     }
 ]
