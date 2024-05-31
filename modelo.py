@@ -45,3 +45,25 @@ class PatientModel:
             if patient['name'].lower().startswith(query.lower()):
                 results.append(patient)
         return results
+class UserModel:
+
+    def __init__(self, users_file = 'usuarios.json'):
+        self.users_file = users_file
+        self.load()
+        
+    def load(self):
+        try:
+            with open(self.users_file, 'r') as file:
+                self.users = json.load(file)
+        except FileNotFoundError:
+            self.users = []
+            print("No se encontró información")
+
+    def exists(self, user:str, pw:str):
+        try:
+            for i in self.users:
+                if i['usuario'] == user and i['contrasena'] == pw:
+                    return (1, f'{user} bienvenido')
+            return 0
+        except TypeError:
+            return 2
