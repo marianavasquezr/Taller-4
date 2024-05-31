@@ -12,8 +12,6 @@ class Login(QDialog):
         loadUi('login.ui', self)
         self.userController = UserController()
         self.setWindowFlags(Qt.FramelessWindowHint)
-        self.setAttribute(Qt.WA_TranslucentBackground)
-        self.setWindowIcon(QtGui.QIcon('imgs/hospital.png'))
         self.setup()
         
     def setup(self):
@@ -69,8 +67,6 @@ class PatientView(QDialog):
         
         self.patientController = PatientController()
         self.setWindowFlags(Qt.FramelessWindowHint)
-        self.setAttribute(Qt.WA_TranslucentBackground)
-        self.setWindowIcon(QtGui.QIcon('imgs/hospital.png'))
         self.setup()
         
     def setup(self):
@@ -81,7 +77,6 @@ class PatientView(QDialog):
         self.ingreso.clicked.connect(self.newPatient)
         self.busqueda.clicked.connect(self.filterPatients)
         self.id.setValidator(validator)
-        self.buscar.setValidator(validator)
         self.edad.setValidator(validator)
         self.readPatients()
         self.tableUpdate()
