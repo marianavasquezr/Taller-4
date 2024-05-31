@@ -26,7 +26,7 @@ class PatientModel:
 
     def delete_patient(self, patient_id:str):
         initLen = len(self.patients)
-        self.patients = [p for p in self.patient if p['id'] != patient_id]
+        self.patients = [p for p in self.patients if p['id'] != patient_id]
         self.save_data()
         if initLen == len(self.patients):
             return 0
@@ -42,7 +42,7 @@ class PatientModel:
     def search_patients(self, query):
         results = []
         for patient in self.patients:
-            if patient['name'].lower().startswith(query.lower()):
+            if patient['nombre'].lower().startswith(query.lower()):
                 results.append(patient)
         return results
 class UserModel:

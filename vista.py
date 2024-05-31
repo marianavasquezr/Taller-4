@@ -2,7 +2,7 @@ from PyQt5.QtWidgets import QDialog, QApplication, QMessageBox, QLineEdit, QPush
 from PyQt5.uic import loadUi
 from PyQt5.QtCore import Qt
 from PyQt5 import QtGui
-from controlador import userController, PatientController
+from controlador import UserController, PatientController
 
 import sys
 
@@ -10,7 +10,7 @@ class Login(QDialog):
     def __init__(self):
         super().__init__()
         loadUi('login.ui', self)
-        self.userController = userController()
+        self.userController = UserController()
         self.setWindowFlags(Qt.FramelessWindowHint)
         self.setAttribute(Qt.WA_TranslucentBackground)
         self.setWindowIcon(QtGui.QIcon('imgs/hospital.png'))
@@ -78,7 +78,7 @@ class PatientView(QDialog):
         self.salir_2.clicked.connect(self.saliendo)  
         self.minimizar.clicked.connect(self.minimizator)
         self.tableView.verticalHeader().setVisible(False)
-        self.ingreso.clicked.connect(self.newPet)
+        self.ingreso.clicked.connect(self.newPatient)
         self.busqueda.clicked.connect(self.filterPatients)
         self.id.setValidator(validator)
         self.buscar.setValidator(validator)
@@ -86,12 +86,12 @@ class PatientView(QDialog):
         self.readPatients()
         self.tableUpdate()
         
-    def readPets(self):
-        self.listaPaciente = self.PatientController.getPac()
+    def readPatients(self):
+        self.listaPaciente = self.patientController.getPac()
         
     def filterPatients(self):
         buscar = self.buscar.text()
-        self.listaPaciente = self.PatientController.getPac(buscar)
+        self.listaPaciente = self.patientController.getPac(buscar)
         self.tableUpdate()
         
     def newPatient(self):
@@ -108,7 +108,7 @@ class PatientView(QDialog):
             msgBox.exec()
         else:
             pac = {'id':id, 'nombre':nombre, 'apellido': apellido, 'edad': edad}
-            isUnique = self.PatientController.newPac(pac)
+            isUnique = self.patientController.newPac(pac)
             if not isUnique:
                 msgBox = QMessageBox()
                 msgBox.setIcon(QMessageBox.Warning)
@@ -117,19 +117,19 @@ class PatientView(QDialog):
                 msgBox.setStandardButtons(QMessageBox.Ok)
                 msgBox.exec()
             else:
-                self.readPacs()
+                self.readPatients()
                 self.tableUpdate()
                 self.id.setText('')
                 self.nombre.setText('')
-                self.raza.setText('')
+                self.apellido.setText('')
                 self.edad.setText('')
             
                         
     def tableUpdate(self):
         self.tableView.setRowCount(len(self.listaPaciente)) 
         self.tableView.setColumnCount(5) # 5 siempre
-        columnas = ["ID", "Nombre", "Edad", "Apellido", "Eliminar"]
-        columnLayout = ['id','nombre','edad','apellido']
+        columnas = ["ID", "Nombre", "Apellido", "Edad", "Eliminar"]
+        columnLayout = ['id','nombre','apellido','edad']
         self.tableView.setHorizontalHeaderLabels(columnas)
         for row, paciente in enumerate(self.listaPaciente):
             for column in range(4):
@@ -148,13 +148,13 @@ class PatientView(QDialog):
 
     def Eliminar(self, row):
         id = self.tableView.item(row, 0).text()
-        deleted = self.PatientController.delPac(id)
+        deleted = self.patientController.delPac(id)
         if not deleted:
             msgBox = QMessageBox()
             msgBox.setIcon(QMessageBox.Warning)
             msgBox.setStandardButtons(QMessageBox.Ok)
             msgBox.exec()
-        self.readPac()
+        self.readPatients()
         self.tableUpdate()
     
     def mousePressEvent(self, event):

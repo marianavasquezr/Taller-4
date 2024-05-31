@@ -13,10 +13,10 @@ class PatientController:
         self.pac_model = pac_model
 
     def newPac(self, data:dict):
-        return self.pac_model.add_pac(data)
+        return self.pac_model.add_patient(data)
     
     def getPac(self, initName:str = ''):
-        return self.pac_model.search_pacs(initName)
+        return self.pac_model.search_patients(initName)
     
     def delPac(self, id:str):
-        return self.pac_model.delete_pac(id)
+        return self.pac_model.delete_patient(id)
