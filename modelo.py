@@ -1,7 +1,7 @@
 import json
 import os
 
-class PacModel:
+class PatientModel:
     def __init__(self, data_file = 'info.json'):
         self.data_file = data_file
         self.load_data()
@@ -25,7 +25,7 @@ class PacModel:
         return False
 
     def delete_patient(self, patient_id:str):
-        initLen = len(self.pets)
+        initLen = len(self.patients)
         self.patients = [p for p in self.patient if p['id'] != patient_id]
         self.save_data()
         if initLen == len(self.patients):
@@ -33,5 +33,15 @@ class PacModel:
         else:
             return 1
 
-    def search_patients(self, initName:str):
-        pass 
+    def get_patient_by_id(self, patient_id):
+        for patient in self.patients:
+            if patient['id'] == patient_id:
+                return patient
+        return None
+
+    def search_patients(self, query):
+        results = []
+        for patient in self.patients:
+            if patient['name'].lower().startswith(query.lower()):
+                results.append(patient)
+        return results
