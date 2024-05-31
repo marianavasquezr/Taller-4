@@ -10,13 +10,13 @@ class UserController:
     
 class PatientController:
     def __init__(self, pac_model = PatientModel()):
-        self.vet_model = pac_model
+        self.pac_model = pac_model
 
     def newPac(self, data:dict):
-        return self.vet_model.add_pac(data)
+        return self.pac_model.add_pac(data)
     
     def getPac(self, initName:str = ''):
-        return self.vet_model.search_pacs(initName)
+        return self.pac_model.search_pacs(initName)
     
     def delPac(self, id:str):
-        return self.vet_model.delete_pac(id)
+        return self.pac_model.delete_pac(id)
